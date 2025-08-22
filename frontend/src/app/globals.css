@@ -1,0 +1,47 @@
+@import "tailwindcss";
+
+/* globals.css */
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-gray-900 text-white;
+  }
+}
+
+/* Custom animation for the loading indicator */
+@keyframes wavey {
+  0%, 100% { transform: scaleY(0.5); }
+  50% { transform: scaleY(1.5); }
+}
+
+.animate-wavey {
+  animation: wavey 1.2s linear infinite;
+}
+
+/* Custom styles for the range slider thumb */
+.range-thumb::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  background: #a855f7; /* purple-500 */
+  border-radius: 50%;
+  cursor: pointer;
+  border: 2px solid #ffffff;
+  margin-top: -7px; /* Center thumb on the track */
+}
+
+.range-thumb::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  background: #a855f7; /* purple-500 */
+  border-radius: 50%;
+  cursor: pointer;
+  border: 2px solid #ffffff;
+}
+
+/* Custom styles for the audio player */
+.audio-player {
+  filter: invert(1) hue-rotate(180deg) contrast(1.2);
+}
