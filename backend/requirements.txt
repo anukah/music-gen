@@ -1,0 +1,10 @@
+fastapi
+uvicorn[standard]
+torch
+scipy
+transformers
+diffusers
+accelerate
+safetokens
+python-multipart
+pydantic
