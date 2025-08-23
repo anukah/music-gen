@@ -23,15 +23,14 @@ The project is divided into a Python backend for AI processing and a TypeScript 
 
 | Component   | Technology                 | Purpose                                     |
 |-------------|----------------------------|---------------------------------------------|
-| Backend     | Python 3.9+                | Core programming language                   |
-|             | FastAPI                    | High-performance web framework for the API  |
-|             | PyTorch                    | Deep learning framework for running AI models |
+| Backend     | Python 3.9+                | backend programming language                |
+|             | FastAPI                    | framework for the API                       |
+|             | PyTorch                    | framework for running AI models             |
 |             | Hugging Face transformers  | To run the MusicGen model                   |
-|             | Hugging Face diffusers     | To run the TinySD (Stable Diffusion) model  |
-| Frontend    | Next.js                    | React framework for the user interface      |
-|             | TypeScript                 | Superset of JavaScript for type safety      |
-|             | Tailwind CSS               | Utility-first CSS framework for styling     |
-|             | Lucide React               | Library for beautiful and consistent icons  |
+|             | Hugging Face diffusers     | To run the TinySD model                     |
+| Frontend    | Next.js                    | React framework for the UI                  |
+|             | TypeScript                 | frontend programming language               |
+|             | Tailwind CSS               | CSS framework for styling                   |
 
 Setup and Installation
 ----------------------
