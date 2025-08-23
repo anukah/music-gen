@@ -16,8 +16,8 @@ Features
     
 *   **Modern Web Interface**: A sleek, responsive UI built with Next.js and Tailwind CSS.
 
-⚙️ Tech Stack
--------------
+Tech Stack
+----------
 
 The project is divided into a Python backend for AI processing and a TypeScript frontend for the user interface.
 
@@ -45,7 +45,7 @@ git clone https://github.com/anukah/music-gen.git
 cd music-gen
 ```
 
-2. Backend Setup (FastAPI Server)
+### 2\. Backend Setup (FastAPI Server)
 The backend is responsible for running the AI models.
 
 ```bash
@@ -67,7 +67,7 @@ uvicorn main:app --host 0.0.0.0 --port 8000
 
 Your backend server is now running at `http://localhost:8000`
 
-3. Frontend Setup (Next.js App)
+### 3\. Frontend Setup (Next.js App)
 The frontend provides the user interface in your browser.
 
 ```bash
