@@ -41,7 +41,6 @@ To run this project locally, you'll need Git, Python, and Node.js installed. A *
 
 ```bash
 git clone https://github.com/anukah/music-gen.git
-cd music-gen
 ```
 
 ### 2\. Backend Setup (FastAPI Server)
