@@ -1,0 +1,115 @@
+<Prompt>
+  <project>
+    <name>PromptWave</name>
+    <description>
+      Full-stack web app that generates original music tracks and matching album cover art from a single text prompt, using state-of-the-art generative AI.
+    </description>
+  </project>
+
+  <features>
+    <feature>Text-to-Music Generation from natural-language prompts</feature>
+    <feature>Text-to-Image Generation for album cover art that matches the music mood</feature>
+    <feature>Adjustable audio duration (in seconds)</feature>
+    <feature>Low-resource image model (TinySD) for fast, efficient generation</feature>
+    <feature>Modern responsive UI with Next.js and Tailwind CSS</feature>
+  </features>
+
+  <techStack>
+    <backend>
+      <language>Python 3.9</language>
+      <framework>FastAPI</framework>
+      <ai>
+        <library>PyTorch</library>
+        <library>Hugging Face transformers (facebook/musicgen-small)</library>
+        <library>Hugging Face diffusers (segmind/tiny-sd)</library>
+      </ai>
+    </backend>
+    <frontend>
+      <framework>Next.js</framework>
+      <language>TypeScript</language>
+      <ui>Tailwind CSS</ui>
+    </frontend>
+  </techStack>
+
+  <api>
+    <endpoint method="POST" path="/generate">
+      <request contentType="application/json">
+        <schema>
+          {
+            "prompt": "string - user text describing music/mood",
+            "duration": "number - length in seconds (e.g., 10, 30)"
+          }
+        </schema>
+      </request>
+      <process>
+        <step id="music">Use facebook/musicgen-small with the user prompt as-is</step>
+        <step id="image">Use segmind/tiny-sd with engineered prompt (see &lt;models&gt;)</step>
+        <step id="encode">Read files (.wav, .png) and Base64-encode</step>
+      </process>
+      <response contentType="application/json">
+        <schema>
+          {
+            "audio_base64": "string - data:audio/wav;base64,...",
+            "image_base64": "string - data:image/png;base64,..."
+          }
+        </schema>
+      </response>
+    </endpoint>
+  </api>
+
+  <workflow>
+    <step>User enters prompt and selects duration in the Next.js UI</step>
+    <step>Frontend sends POST /generate with {"prompt", "duration"}</step>
+    <step>Backend generates music (MusicGen) and album art (TinySD), saves to temp, encodes to Base64</step>
+    <step>Frontend receives JSON, builds Data URLs, renders image and audio player</step>
+  </workflow>
+
+  <models>
+    <musicGen name="facebook/musicgen-small">
+      <promptStrategy>
+        <useUserPromptVerbatim>true</useUserPromptVerbatim>
+      </promptStrategy>
+      <example>
+        <userInput>lofi chillhop, relaxing jazz piano, vinyl crackle</userInput>
+      </example>
+    </musicGen>
+
+    <tinySD name="segmind/tiny-sd">
+      <promptStrategy>
+        <prefix>album cover art, </prefix>
+        <suffix>, stunning, high resolution</suffix>
+        <rule>Final prompt = prefix + user_prompt + suffix</rule>
+      </promptStrategy>
+      <example>
+        <promptHeader>album cover art,</promptHeader>
+        <userInput>lofi chillhop, relaxing jazz piano, vinyl crackle</userInput>
+        <promptTail>,high resolution</promptTail>
+      </example>
+    </tinySD>
+  </models>
+
+  <frontendUI>
+    <components>
+      <component>Prompt input (textarea)</component>
+      <component>Duration selector (slider or number input, seconds)</component>
+      <component>Generate button</component>
+      <component>Album cover preview (img bound to image_base64)</component>
+      <component>Audio player (source bound to audio_base64)</component>
+      <component>Status/loader + error toasts</component>
+    </components>
+    <style>Tailwind CSS; responsive layout</style>
+  </frontendUI>
+
+  <constraints>
+    <performance>Prefer GPU if available; fall back to CPU gracefully</performance>
+    <files>
+      <audio format="wav" />
+      <image format="png" />
+      <tempHandling>Clean up temp files after encoding</tempHandling>
+    </files>
+    <limits>
+      <maxDurationSeconds>60</maxDurationSeconds>
+      <timeoutSeconds>120</timeoutSeconds>
+    </limits>
+  </constraints>
+</Prompt>
